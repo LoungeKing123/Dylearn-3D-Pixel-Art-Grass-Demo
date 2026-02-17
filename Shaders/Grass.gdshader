@@ -91,6 +91,9 @@ float location_seed (vec2 location) { // Random value based on world space locat
 float random(float n) {
 	return fract(sin(n * 12.9898) * 43758.5453);
 }
+float random_accent(float n) {
+	return fract(tan(n * 12.9898) * 43758.5453);
+}
 
 mat4 rotateAroundAxis(vec3 axis, float angle) {
 	axis = normalize(axis);
@@ -131,8 +134,8 @@ mat4 view_space_rotate(float angle) {
 void vertex() {
 	instance_id = float(INSTANCE_ID);
 	// Generate random numbers for accent leaves based on instance ID
-	id_seed1 = random(instance_id);
-	id_seed2 = random(instance_id + PI);
+	id_seed1 = random_accent(instance_id);
+	id_seed2 = random_accent(instance_id + PI);
 	//// Accent 1
 	if (id_seed1 < accent_frequency1) {
 		VERTEX.y += accent_height1;
